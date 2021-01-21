@@ -1,0 +1,372 @@
+<main class="content">
+    <div class="grid">
+        <div class="mini-reports bg-blue">
+              <div class="l">
+                  <span>10</span>
+                  <span>Some text</span>
+              </div>
+              <div class="r">
+                  <i class="fa fa-book c-blue"></i>
+              </div>
+        </div>
+        <div class="mini-reports bg-green">
+              <div class="l">
+                  <span>1</span>
+                  <span>Home</span>
+              </div>
+              <div class="r">
+                  <i class="fa fa-home c-green"></i>
+              </div>
+        </div>
+        <div class="mini-reports bg-orange">
+              <div class="l">
+                  <span>100</span>
+                  <span>usuário</span>
+              </div>
+              <div class="r">
+                  <i class="fa fa-users c-orange"></i>
+              </div>
+        </div>
+        <div class="mini-reports bg-red">
+              <div class="l">
+                  <span>50</span>
+                  <span>Online</span>
+              </div>
+              <div class="r">
+                  <i class="fa fa-user c-red"></i>
+              </div>
+        </div>
+    </div>
+
+    <div class="grid">
+        <div class="painel">
+            <div class="painel-header">
+                <h4 class="painel-title  " style="color: #000000;">Danh sách món ăn.</h4>
+                <a href="#" data-toggle="modal" data-target="#modalThem"  class="btn btn-green">Thêm</a>
+            </div>
+            <div class="painel-body">
+              <table class="zebra">
+                  <tr>
+                      <th>Tên món</th>
+                      <th>Loại</th>
+                      <th>Giá bán</th>
+                      <th>Người tạo</th>
+                      <th>Ngày tạo</th>
+                      <th>Ngày sửa</th>
+                      <th>Actions</th>
+                  </tr>
+                  <% for (let data of dataSP) { %>
+                  <tr> 
+                      <td><%= data.tenMon %></td>
+                      <td>THỊT CHÓ</td>
+                      <td><%= data.donGia %>vnd</td>
+                      <td><%= data.nguoiTao %></td>
+                      <td><%= data.createAt %></td>
+                      <td><%= data.updateAt %></td>
+                      <td>
+                          <a href="#" title="Xóa tạm thời" data-id = "<%= data._id %>" data-toggle="modal" data-target="#myModal" id="deleteProduct"  class="btn btn-red"><i class="fa fa-trash"></i></a>
+                          <a href="#" title="Xem thông tin" data-id="<%= data._id %>" id="viewProduct" class="btn btn-green"><i class="fa fa-eye"></i></a>
+                          <a href="#" data-toggle="modal" data-target="#id<%= data._id %>" title="Sửa thông tin" data-id="<%= data._id %>" id="editProduct"  class="btn btn-orange"><i class="fa fa-edit"></i></a>
+                      </td>
+                  </tr>
+                  <% } %>
+              </table>
+            </div>
+        </div>
+    </div>
+    <div class="grid">
+        <div class="painel">
+            <div class="painel-header">
+                <h4 class="painel-title" style="color: red; ">Bảng danh sách món ăn đã xóa</h4>
+                <a href="#" class="btn btn-green">table</a>
+            </div>
+            <div class="painel-body">
+                <div class="alert alert-success">Erro ao adicionar usuário</div>
+              <table class="zebra">
+                  <tr>
+                      <th>Tên sản phẩm</th>
+                      <th>Người xóa</th>
+                      <th>Ngày xóa</th>
+                      <th>Actions</th>
+                  </tr>
+                  <tr>
+                      <td>Bê Nướng</td>
+                      <td>Trung</td>
+                      <td>20/02/2019</td>
+                      <td>
+                          <a href="#" title="Xóa vĩnh viễn" data-toggle="modal" data-target="#myModal1" class="btn btn-red"><i class="fa fa-trash" ></i></a>
+                          <a href="#" title="Phục hồi" class="btn btn-orange"><i class="fa fa-undo"></i></a>
+                      </td>
+                  </tr>
+              </table>
+            </div>
+        </div>
+    </div>
+    <div class="grid">
+        <div class="painel">
+            <div class="painel-header">
+                <h4 class="painel-title">Inline form</h4>
+            </div>
+            <div class="painel-body">
+                <div class="alert alert-danger">Preencha todos os campos</div>
+              <form action="#" class="inline-form" >
+                  <div class="group">
+                      <label for="#">TenMon</label>
+                      <input type="text" name="tenMon" id="" placeholder="Nome">
+                  </div>
+                  <div class="group">
+                      <label for="#">Don gia</label>
+                      <input type="text" name="donGia" id="" placeholder="email">
+                  </div>
+                  <div class="group">
+                      <label for="#">Mota</label>
+                      <input type="text" name="moTa" id="" placeholder="password">
+                  </div>
+                  <div class="group">
+                      <label for="#">hinhAnh</label>
+                     <input type="file" name="hinhAnhThem" id="">
+                  </div>
+
+                  <div class="group">
+                      <p>&nbsp;</p>
+                      <input type="submit" class="btn btn-green" style="width: 40%;" value="Salvar">
+                  </div>
+                  
+             </form>
+            </div>
+        </div>
+    </div>
+     <!-- //////////////// FORM MODAL THÊM MÓN ĂN//////////////////////--> 
+        <div class="modal" id="modalThem">
+            <div class="modal-dialog">
+              <div class="modal-content">   
+                <div class="modal-body">
+            <div class="painel">
+                <div class="painel-header">
+                    <h4 class="painel-title">Form Thêm thông tin.</h4>
+                </div>
+                <div class="painel-body">  
+                            <form class="form" id="formAddProduct" name="form-ThemProduct" method="POST" enctype="multipart/form-data" >
+                                <div class="group">
+                                    <label for="#">Tên món:</label>
+                                    <input type="text" name="tenMon" id="tenMon" placeholder="Nhập tên món" required>
+                                </div>
+                                <div class="group">
+                                    <label for="#">Giá bán:</label>
+                                    <input type="text" name="donGia" id="donGia" placeholder="Nhập giá bán" required>
+                                </div>
+                                <div class="group">
+                                    <label for="#">Hình ảnh:</label>
+                                    <input type="file" name="hinhAnhThem">
+                                    
+                                </div>
+                                <div class="group">
+                                    <label for="loai">Loại</label>
+                                    <select name="" id="">
+                                        <option value="">Món Nướng</option>
+                                        <option value="">Nước Uống</option>
+                                    </select>
+                                </div>
+                                <div class="group">
+                                    <label for="#">Mô tả:</label>
+                                    <input type="text" name="moTa" id="moTa" placeholder="Thêm mô tả" required>
+                                </div>
+                          </div>
+                                        
+                      </div>
+                          </div>
+                          
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-success fa fa-plus-circle"  id="btn-AddProduct">Thêm món</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>                
+          <!--//////////////////// End confirm delte ////////////////////////--->               
+    <!-- The Modal FORM XÓA -->
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Thông báo</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+         Bạn có chắc chắn muốn xóa sản phẩm này?
+        </div>
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+
+          <button type="button" id="btn-delete-product" class="btn btn-danger">OK</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+    <!-- //////////////// FORM MODAL UPDATE MÓN ĂN//////////////////////-->
+    <% for (data of dataSP) { %>  
+    <div class="modal" id="id<%= data._id %>">
+        <div class="modal-dialog">
+          <div class="modal-content">   
+            <div class="modal-body">
+        <div class="painel">
+            <div class="painel-header">
+                <h4 class="painel-title">Form cập nhật thông tin.</h4>
+            </div>
+            <div class="painel-body">
+                     
+                        <form class="form" id="formAddProduct" name="form-UpdateProduct" method="POST" >
+                            <div class="group">
+                                <label for="#">Tên món</label>
+                                <input type="text" name="tenMon" id="" placeholder="Nhập tên món" value="<%= data.tenMon %>">
+                            </div>
+                            <div class="group">
+                                <label for="#">Giá bán</label>
+                                <input type="text" name="donGia" id="" placeholder="Nhập giá bán" value="<%= data.donGia %>">
+                            </div>
+                            <div class="group">
+                                <label for="#">Mô tả</label>
+                                <input type="text" name="moTa" id="" placeholder="Thêm mô tả" value="<%= data.moTa %>">
+                            </div>
+                      </div>
+                                    
+                  </div>
+                      </div>
+                      
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-success " id="btn-updateProduct">Cập nhật</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>                
+         <% } %>
+      <!--//////////////////// End confirm delte ////////////////////////--->
+<div>
+    <form name="delete-product-form" method="POST"></form>
+</div>
+ </main>
+<!---/////////////////////////////////////////////// XỬ LÝ SUMMIT FORM MODAL//////////////////////////////////////////-->
+ <script>
+     document.addEventListener('DOMContentLoaded' , function(){
+        // chu y su dung var khong su dung const dc
+         //tao bien luu IDSP
+         var idSP;
+         var formThem = document.forms['form-ThemProduct'];
+         var formDelete = document.forms['delete-product-form'];
+         var formUpdate = document.forms['form-UpdateProduct'];
+         var btnThem = document.getElementById('btn-AddProduct')
+         var btnDelete = document.getElementById('deleteProduct');
+         var btnDeleteProduct = document.getElementById('btn-delete-product');
+         var btnUpdateProduct = document.getElementById('btn-updateProduct');
+         // xử lý thêm sản phẩm 
+         $('#modalThem').on('show.bs.modal', function(event){       
+            btnThem.onclick = () =>{  
+                formThem.action = '/page-admin/san-pham/them-mon-an/?_method=POST';
+                formThem.submit();
+            }
+         });
+         //xử lý đưa id sp cần xóa lên modal form
+         $('#myModal').on('show.bs.modal', function (event) {
+                          var button = $(event.relatedTarget); 
+                          idSP  = button.data('id');
+                          console.log("id Xóa" + idSP)
+                        });
+                        // xử lý sự kiện click form 
+        btnDeleteProduct.onclick = ()=>{
+            formDelete.action = '/page-admin/'+ idSP + '?_method=DELETE';
+             formDelete.submit();       
+         };
+        // sử lý modal form update
+        $('#myModal3').on('show.bs.modal', function (event) {
+                          var button = $(event.relatedTarget); 
+                          idSP  = button.data('id');
+                          console.log("id UPDATE"+ idSP)
+                        });
+         btnUpdateProduct.onclick = ()=>{
+            alert(idSP)   
+            formUpdate.action = '/page-admin/'+ idSP + '?_method=PUT';
+          
+         };
+     });
+ </script>
+ <!------////////////////////////////////////////// PREVIEW IMAGES///////////////////////////////////////////-->
+<!-- <script>
+    $(document).ready(function() {
+        // Multiple images preview in browser 
+        let imagesPreview = function(input, placeToInsertImagePreview) {
+            if (input.files) {
+                let filesAmount = input.files.length;
+                for (i = 0; i < filesAmount; i++) {
+                    let reader = new FileReader();
+                    reader.onload = function(event) {
+                        $($.parseHTML("<img>")).attr("src", event.target.result).appendTo(placeToInsertImagePreview);
+                    }
+                    reader.readAsDataURL(input.files[i]);
+                }
+            }
+        };
+        $("#input-many-files").on("change", function() {
+            imagesPreview(this, "div.preview-images");
+        });
+    });
+</script> -->
+
+<!--//////////////// /////////////////////////LOAD DATA  SAN PHAM LEN AJAX //////////////////////////////////-->
+<!-- <script type="text/javascript">
+    $(document).ready(function()
+    { 
+       //khai báo biến submit form lấy đối tượng nút submit
+       var submit = $("button[type='submit']");
+ 
+       //khi nút submit được click
+       submit.click(function()
+       {
+         //khai báo các biến dữ liệu gửi lên server
+         var tenMon = $("input[name='tenMon']").val(); //lấy giá trị trong input tenMon
+        var donGia = $("input[name='donGia']").val();
+        var moTa = $("input[name='moTa']").val();
+
+         //Kiểm tra xem trường đã được nhập hay chưa
+         if(tenMon == ''){
+           alert('Vui lòng nhập Tên món');
+           return false;
+         }else if(donGia == ''){
+            alert('Vui lòng nhập Giá bán');
+           return false;
+         }else if(moTa == ''){
+            alert('Vui lòng nhập Mô tả');
+           return false;
+         }
+  
+         //Lấy toàn bộ dữ liệu trong Form
+         var data = $('form#formAddProduct').serialize();
+       
+         //Sử dụng phương thức Ajax.
+         $.ajax({
+               type : 'POST', //Sử dụng kiểu gửi dữ liệu POST
+               url : '/page-admin/mon-an/them-mon-an',
+               data : data, //dữ liệu sẽ được gửi
+               success : function(data)  // Hàm thực thi khi nhận dữ liệu được từ server
+                         { 
+                            if(data == 'false') 
+                            {
+                              alert('Không có data');
+                            }else{
+                              $('#content').html(data);
+                            }
+                         }
+               });
+               return false;
+         });
+     });
+ </script> -->
