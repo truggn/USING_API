@@ -32,21 +32,20 @@ app.set('view engine' , 'ejs')
 app.set('layout', 'layouts');
 app.use(expressEjsLayouts)
 
-app.set('views' , path.join(__dirname,'views'))
+app.set('views' , path.join(__dirname,'/resources/views'))
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(passport.initialize())
 app.use(passport.session())
 
 // SESSION
 app.use(session({ 
-    cookie: {expires: false},
     secret: 'trungviSecrect',
     resave: true,
     rolling: false,
     saveUninitialized: false}));
 
 // Router.
-const router = require('./router')
+const router = require('./routers')
 router(app)
 app.get('/' , (req , res , next) =>{
     return res.status(200).json({
